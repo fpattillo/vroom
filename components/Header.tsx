@@ -13,9 +13,7 @@ const Header: React.FC = () => {
   let left = (
     <div className="left">
       <Link href="/">
-        <a className="bold" data-active={isActive('/')}>
-          Feed
-        </a>
+        Feed
       </Link>
       <style jsx>{`
         .bold {
@@ -44,10 +42,8 @@ const Header: React.FC = () => {
   if (status === 'loading') {
     left = (
       <div className="left">
-        <Link href="/">
-          <a className="bold" data-active={isActive('/')}>
-            Feed
-          </a>
+        <Link href="/" legacyBehavior>
+          Feed
         </Link>
         <style jsx>{`
           .bold {
@@ -86,7 +82,7 @@ const Header: React.FC = () => {
     right = (
       <div className="right">
         <Link href="/api/auth/signin">
-          <a data-active={isActive('/signup')}>Log in</a>
+          Log in
         </Link>
         <style jsx>{`
           a {
@@ -117,12 +113,10 @@ const Header: React.FC = () => {
     left = (
       <div className="left">
         <Link href="/">
-          <a className="bold" data-active={isActive('/')}>
-            Feed
-          </a>
+          Feed
         </Link>
         <Link href="/drafts">
-          <a data-active={isActive('/drafts')}>My drafts</a>
+          My drafts
         </Link>
         <style jsx>{`
           .bold {
@@ -152,7 +146,7 @@ const Header: React.FC = () => {
         </p>
         <Link href="/create">
           <button>
-            <a>New post</a>
+            New post
           </button>
         </Link>
         <button onClick={() => signOut()}>
