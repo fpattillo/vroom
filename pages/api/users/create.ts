@@ -14,7 +14,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         name,
         company,
         email,
-        amount,
+        amount: parseFloat(amount),
         pandadoc,
         role: 'CLIENT',
         currency,
