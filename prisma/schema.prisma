@@ -29,6 +29,7 @@ model User {
   pandadoc          String?           @default("")
   currency          String?           @default("UF")
   password          String?
+  first_log_in      Boolean?          @default(true)
 }
 
 enum DocumentType {
