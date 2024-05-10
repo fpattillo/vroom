@@ -5,11 +5,10 @@ import prisma from "../../../lib/prisma";
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   
   try {
-    const {company, email, amount, pandadoc, title, currency, name} = req.body;
-    if (!company || !email || !amount || !pandadoc || !title || !name) {
-      throw new Error('Company, email, amount, pandadoc and title are required');
+    const {company, email, amount, pandadoc,  currency, name} = req.body;
+    if (!company || !email || !amount || !pandadoc || !name) {
+      throw new Error('Company, email, amount, pandadoc are required');
     }
-    const computedCurrency = currency ?? (title as string).split('[').pop().split(']')[0];
     await prisma.user.create({
       data: {
         name,
@@ -18,7 +17,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         amount,
         pandadoc,
         role: 'CLIENT',
-        currency: computedCurrency,
+        currency,
       }
     })
     res.json({ message: 'Hello' })
