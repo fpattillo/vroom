@@ -34,11 +34,7 @@ export default NextAuth({
           where: { email: credentials.username },
         })
         if (user && await bcrypt.compare(credentials.password, user.password)) {
-          return {
-            id: user.id,
-            name: user.name,
-            email: user.email,
-          }
+          return user
         } else {
           // If you return null, it will trigger an error on the client side "Credentials Sign In"
           return null
