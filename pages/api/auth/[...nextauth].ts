@@ -11,12 +11,6 @@ const bcrypt = require('bcrypt')
 * Please refer https://next-auth.js.org/tutorials/refresh-token-rotation link for a reference.
  */
 
-async function encryptPassword(password: string): Promise<string> {
-  const saltRounds = 10;
-  const hashedPassword = await bcrypt.hash(password, saltRounds);
-  return hashedPassword;
-}
-
 export default NextAuth({
   adapter: PrismaAdapter(prisma),
   providers: [
@@ -36,18 +30,15 @@ export default NextAuth({
         password: { label: "Contraseña", type: "password" }
       },
       async authorize(credentials) {
-        console.log("credentials", credentials);
         const user = await prisma.user.findUnique({
           where: { email: credentials.username },
         })
-        console.log("user", user);
-        /* const hashedPassword = await encryptPassword(credentials.password)
-        console.log("hashedPassword", hashedPassword, user.password);
-        if (hashedPassword === user.password) {
-          return user
-        } */
-        if (user && await bcrypt.compare(credentials.password, user.password, encryptPassword)) {
-          return user
+        if (user && await bcrypt.compare(credentials.password, user.password)) {
+          return {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+          }
         } else {
           // If you return null, it will trigger an error on the client side "Credentials Sign In"
           return null
@@ -55,4 +46,8 @@ export default NextAuth({
       }
     })
   ],
+  session: {
+    strategy: 'jwt',
+  },
+  secret: process.env.NEXTAUTH_SECRET,
 });
