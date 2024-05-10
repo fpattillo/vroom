@@ -11,16 +11,40 @@ datasource db {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  theme         String?   @default("light")
-  posts         Post[]
-  accounts      Account[]
-  sessions      Session[]
-  role          String?   @default("admin")
+  id                String            @id @default(cuid())
+  name              String?
+  email             String?           @unique
+  emailVerified     DateTime?
+  image             String?
+  theme             String?           @default("light")
+  posts             Post[]
+  accounts          Account[]
+  sessions          Session[]
+  company           String?
+  role              Role?             @default(CLIENT)
+  document_type     DocumentType?     @default(NONE)
+  subscription_type SubscriptionType? @default(MONTHLY)
+  period            Int?              @default(1)
+  amount            Float?            @default(0)
+  pandadoc          String?           @default("")
+  currency          String?           @default("UF")
+}
+
+enum DocumentType {
+  NONE
+  OC
+  HES
+  BOTH
+}
+
+enum SubscriptionType {
+  MONTHLY
+  YEARLY
+}
+
+enum Role {
+  CLIENT
+  ADMIN
 }
 
 model Post {
