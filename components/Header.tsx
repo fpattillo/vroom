@@ -1,14 +1,13 @@
 import React from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { signIn, signOut, useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
+import { NavigationMenuDemo } from './NavigationMenu';
+import { useWindowSize } from '../hooks/useWindowSize';
+import { DarkModeToggle } from './DarkModeToggle';
 
 const Header: React.FC = () => {
-  const router = useRouter();
-  const isActive: (pathname: string) => boolean = (pathname) =>
-    router.pathname === pathname;
-
   const { data: session, status } = useSession();
+  const { width } = useWindowSize();
 
   let left = (
     <div className="left">
@@ -42,7 +41,7 @@ const Header: React.FC = () => {
   if (status === 'loading') {
     left = (
       <div className="left">
-        <Link href="/" legacyBehavior>
+        <Link href="/">
           Feed
         </Link>
         <style jsx>{`
@@ -112,43 +111,15 @@ const Header: React.FC = () => {
   if (session) {
     left = (
       <div className="left">
-        <Link href="/">
-          Feed
-        </Link>
-        <Link href="/drafts">
-          My drafts
-        </Link>
-        <style jsx>{`
-          .bold {
-            font-weight: bold;
-          }
-
-          a {
-            text-decoration: none;
-            color: var(--geist-foreground);
-            display: inline-block;
-          }
-
-          .left a[data-active='true'] {
-            color: gray;
-          }
-
-          a + a {
-            margin-left: 1rem;
-          }
-        `}</style>
+        <NavigationMenuDemo />
       </div>
     );
     right = (
       <div className="right">
         <p>
-          {session.user.name} ({session.user.email})
+          {session.user.name} {width > 768 && `(${session.user.email})`}
         </p>
-        <Link href="/create">
-          <button>
-            New post
-          </button>
-        </Link>
+        <DarkModeToggle />
         <button onClick={() => signOut()}>
           <a>Log out</a>
         </button>
