@@ -42,6 +42,25 @@ export default NextAuth({
       }
     })
   ],
+  callbacks: {
+    async session({ session, token }: any) {
+      const user = await prisma.user.findUnique({
+        where: { email: session.user.email },
+      })
+      session.user.id = user.id
+      session.user.theme = user.theme
+      session.user.company = user.company
+      session.user.role = user.role
+      session.user.document_type = user.document_type
+      session.user.subscription_type = user.subscription_type
+      session.user.period = user.period
+      session.user.amount = user.amount
+      session.user.pandadoc = user.pandadoc
+      session.user.currency = user.currency
+      session.user.first_log_in = user.first_log_in
+      return session
+    }
+  },
   session: {
     strategy: 'jwt',
   },
