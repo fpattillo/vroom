@@ -28,6 +28,7 @@ model User {
   amount            Float?            @default(0)
   pandadoc          String?           @default("")
   currency          String?           @default("UF")
+  password          String?
 }
 
 enum DocumentType {
