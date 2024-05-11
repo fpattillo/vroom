@@ -17,7 +17,6 @@ export default function Onboarding() {
     setStep(1);
   }
 
-
   async function handleSubmitSettings() {
     const documentType = oc && hes ? "BOTH" : oc ? "OC" : hes ? "HES" : "NONE";
     fetch('/api/users/updateDocumentTypes', {
@@ -31,7 +30,9 @@ export default function Onboarding() {
       }),
     })
     .then(response => response.json())
-    .then(data => console.log(data))
+    .then(() => {
+      location.reload();
+    })
     .catch((error) => {
       console.error('Error:', error);
     });
