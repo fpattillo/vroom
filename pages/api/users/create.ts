@@ -43,7 +43,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       password,
       name,
     });
-    res.json({ message: "Hello" });
+    res.json({ password });
   } catch (e) {
     res.status(400).json({ error: (e as Error).message });
   }
