@@ -12,8 +12,6 @@ export const getStaticProps = async (context) => {
 };
 
 const Dashboard: FC<Props> = (props) => {
-  // const { data: session, status } = useSession();
-  // console.log({ session });
   return (
     <Layout>
       <DashboardTable />

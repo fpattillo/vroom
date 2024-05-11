@@ -9,7 +9,6 @@ import { useSession } from "next-auth/react";
 
 export function DarkModeToggle() {
   const { data: session, status } = useSession();
-  console.log(session);
   const { setTheme } = useTheme();
   const [currentTheme, setCurrentTheme] = useState<"light" | "dark">(
     // @ts-ignore

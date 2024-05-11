@@ -9,62 +9,12 @@ const Header: React.FC = () => {
   const { data: session, status } = useSession();
   const { width } = useWindowSize();
 
-  let left = (
-    <div className="left">
-      <Link href="/">
-        Feed
-      </Link>
-      <style jsx>{`
-        .bold {
-          font-weight: bold;
-        }
-
-        a {
-          text-decoration: none;
-          color: var(--geist-foreground);
-          display: inline-block;
-        }
-
-        .left a[data-active='true'] {
-          color: gray;
-        }
-
-        a + a {
-          margin-left: 1rem;
-        }
-      `}</style>
-    </div>
-  );
+  let left = null;
 
   let right = null;
 
   if (status === 'loading') {
-    left = (
-      <div className="left">
-        <Link href="/">
-          Feed
-        </Link>
-        <style jsx>{`
-          .bold {
-            font-weight: bold;
-          }
-
-          a {
-            text-decoration: none;
-            color: var(--geist-foreground);
-            display: inline-block;
-          }
-
-          .left a[data-active='true'] {
-            color: gray;
-          }
-
-          a + a {
-            margin-left: 1rem;
-          }
-        `}</style>
-      </div>
-    );
+    left = null;
     right = (
       <div className="right">
         <p>Validating session ...</p>
@@ -109,11 +59,7 @@ const Header: React.FC = () => {
   }
 
   if (session) {
-    left = (
-      <div className="left">
-        <NavigationMenuDemo />
-      </div>
-    );
+    left = null;
     right = (
       <div className="right">
         <p>
