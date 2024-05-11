@@ -115,6 +115,10 @@ const DashboardTable: FC<Props> = (props) => {
   const { data, status } = useSession();
   if (status === "loading" || !data) return null;
   const user = data?.user as User;
+  if (user.role !== "client") {
+    document.location.href = "/admin-dashboard";
+    return
+  }
   
   return (
     <>
