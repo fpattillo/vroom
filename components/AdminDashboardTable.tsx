@@ -97,9 +97,9 @@ type User = {
 
 const AdminDashboardTable: FC<Props> = (props) => {
   const { data, status } = useSession();
+  const [search, setSearch] = useState("");
   if (status === "loading" || !data) return null;
   const user = data?.user as User;
-  const [search, setSearch] = useState("");
   // if (user.role !== "admin") {
   //   document.location.href = "/admin-dashboard";
   //   return;
